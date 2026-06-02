@@ -1,0 +1,31 @@
+# AI-Planet — error codes
+# Last updated: 2026-05-15
+# Client-visible error codes with en/hi messages.
+# Wire shape: { "error": { "code": "...", "message": "...", "messageHi": "..." } }
+# Codes are lower_snake_case. See docs/03-api-contract.md.
+
+errors:
+  validation_failed:
+    http: 400
+    en: "Please enter a question between 1 and 1000 characters."
+    hi: "कृपया 1 से 1000 अक्षरों के बीच एक प्रश्न दर्ज करें।"
+
+  agent_not_found:
+    http: 404
+    en: "That assistant isn't available. Pick one from the list."
+    hi: "वह सहायक उपलब्ध नहीं है। सूची में से एक चुनें।"
+
+  no_relevant_source:
+    http: 422
+    en: "I'm not sure about this. Please check the official UIDAI source."
+    hi: "मुझे इसके बारे में निश्चित जानकारी नहीं है। कृपया आधिकारिक UIDAI स्रोत देखें।"
+
+  llm_unavailable:
+    http: 503
+    en: "The assistant is temporarily unavailable. Please try again shortly."
+    hi: "सहायक अस्थायी रूप से उपलब्ध नहीं है। कृपया थोड़ी देर बाद पुनः प्रयास करें।"
+
+  internal_error:
+    http: 500
+    en: "Something went wrong on our side. Please try again."
+    hi: "हमारी ओर से कुछ गड़बड़ हो गई। कृपया पुनः प्रयास करें।"

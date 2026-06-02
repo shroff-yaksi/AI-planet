@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: AI-Planet API
+  version: 0.1.0
+  description: >
+    Skeleton contract for AI-Planet (Building 1: Sarkari-Sahayak).
+    One ask endpoint, stateless. Wire keys are camelCase; codes/enums are
+    lower_snake_case. See docs/03-api-contract.md. Generate types from this file
+    (do not hand-write wire types).
+servers:
+  - url: /v1
+paths:
+  /ask:
+    post:
+      summary: Ask one grounded question
+      operationId: ask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AskRequest"
+      responses:
+        "200":
+          description: Grounded answer with citations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AskResponse"
+        "400": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "422": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+        "500": { $ref: "#/components/responses/Error" }
+  /agents:
+    get:
+      summary: List available agents
+      operationId: listAgents
+      responses:
+        "200":
+          description: Agents
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [agents]
+                properties:
+                  agents:
+                    type: array
+                    items: { $ref: "#/components/schemas/AgentSummary" }
+  /health:
+    get:
+      summary: Liveness + Ollama reachability
+      operationId: health
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, ollamaReachable]
+                properties:
+                  status: { type: string, example: ok }
+                  ollamaReachable: { type: boolean }
+components:
+  schemas:
+    AskRequest:
+      type: object
+      required: [question]
+      properties:
+        question: { type: string, minLength: 1, maxLength: 1000 }
+        agentId:
+          type: string
+          description: Optional; intent router picks one if omitted.
+    AskResponse:
+      type: object
+      required: [answer, agentId, confidence, citations]
+      properties:
+        answer: { type: string }
+        agentId: { type: string }
+        confidence:
+          type: string
+          enum: [high, low, none]
+        citations:
+          type: array
+          items: { $ref: "#/components/schemas/Citation" }
+    Citation:
+      type: object
+      required: [rank, sourceUrl, sourceTitle]
+      properties:
+        rank: { type: integer }
+        sourceUrl: { type: string, format: uri }
+        sourceTitle: { type: string }
+        snippet: { type: string }
+    AgentSummary:
+      type: object
+      required: [id, title, status]
+      properties:
+        id: { type: string, example: mobile-update }
+        title: { type: string, example: Aadhaar Mobile Update }
+        status:
+          type: string
+          enum: [live, in_progress, planned]
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum:
+                - validation_failed
+                - agent_not_found
+                - no_relevant_source
+                - llm_unavailable
+                - internal_error
+            message: { type: string }
+            messageHi: { type: string }
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"

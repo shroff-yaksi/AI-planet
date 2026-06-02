@@ -1,0 +1,50 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "_meta": {
+    "project": "AI-Planet",
+    "lastUpdated": "2026-05-15",
+    "note": "Source of truth for UI tokens. Rationale in DESIGN.md; component spec in docs/07-design-system.md. Locked by DL-2026-05-15-a."
+  },
+  "color": {
+    "brand": {
+      "primary": { "value": "#0E7490", "comment": "Teal — buttons, links, active states, logo" },
+      "citation": { "value": "#7C3AED", "comment": "Violet — citation chips & source links ONLY" }
+    },
+    "ink": {
+      "900": { "value": "#0F172A", "comment": "Body text" },
+      "500": { "value": "#64748B", "comment": "Secondary text, captions" }
+    },
+    "surface": {
+      "0": { "value": "#FFFFFF", "comment": "Cards" },
+      "50": { "value": "#F8FAFC", "comment": "Page background" }
+    },
+    "feedback": {
+      "success": { "value": "#16A34A", "comment": "State only, never decorative" },
+      "warning": { "value": "#D97706", "comment": "State only" },
+      "error": { "value": "#DC2626", "comment": "State only" }
+    }
+  },
+  "typography": {
+    "fontFamily": { "value": "Inter, system-ui, sans-serif" },
+    "minWeight": { "value": 400, "comment": "Weight <= 300 forbidden (playbook)" },
+    "body": { "fontSize": { "value": "16px" }, "lineHeight": { "value": 1.6 } },
+    "heading": { "fontWeight": { "value": 600 } },
+    "citation": { "fontSize": { "value": "14px" }, "color": { "value": "{color.brand.citation}" } }
+  },
+  "space": {
+    "base": { "value": "4px" },
+    "4": { "value": "16px", "comment": "Between siblings" },
+    "5": { "value": "24px", "comment": "Between sections" }
+  },
+  "radius": {
+    "md": { "value": "8px", "comment": "Cards, inputs" },
+    "pill": { "value": "9999px", "comment": "Chips, avatars" }
+  },
+  "size": {
+    "touchTargetMobile": { "value": "48px" },
+    "touchTargetWeb": { "value": "44px" }
+  },
+  "motion": {
+    "routeFade": { "value": "200ms", "comment": "Structural only; no hover-icon animation" }
+  }
+}

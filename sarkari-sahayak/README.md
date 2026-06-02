@@ -12,7 +12,7 @@ Sarkari-Sahayak starts with **Aadhaar updates** (mobile, address, name, photo). 
 
 ## Place in AI-Planet
 
-This is **Building 1** of [AI-Planet](../README.md). The architecture, RAG pipeline, and OSS workflow we build here become the foundation that future buildings (Passport Office, Bank, Hospital, …) will reuse. See the [master roadmap](../ROADMAP.md) for the long-term picture.
+This is **Building 1** of [AI-Planet](../README.md). The architecture, RAG pipeline, and OSS workflow we build here become the foundation that future buildings (Passport Office, Bank, Hospital, …) will reuse. See [PROJECT.md §15](../PROJECT.md#15--roadmap--status) for the long-term, multi-building picture.
 
 ## What makes this different
 
@@ -34,7 +34,7 @@ This is **Building 1** of [AI-Planet](../README.md). The architecture, RAG pipel
 
 ## Contributing
 
-Building 1 is solo for now. Once Building 2 begins (see [`../ROADMAP.md`](../ROADMAP.md)), the AI-Planet agent-pack format will stabilize and contribution docs will go live at the project root.
+Building 1 is solo for now. Once Building 2 begins (see [PROJECT.md §15](../PROJECT.md#15--roadmap--status)), the AI-Planet agent-pack format will stabilize and contribution docs will go live at the project root.
 
 ## License
 

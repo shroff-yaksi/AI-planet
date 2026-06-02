@@ -1,0 +1,38 @@
+# AI-Planet — enums
+# Last updated: 2026-05-15
+# Canonical enum values. Wire + DB use lower_snake_case (playbook).
+# Names align with docs/06-naming-glossary.md.
+
+confidence:
+  description: How well retrieval supported the answer (in POST /v1/ask response).
+  values:
+    - high      # Answer grounded in strong source chunks
+    - low       # Answer grounded but uncertain; cite + caveat
+    - none      # No usable source; return honest "I'm not sure" + official link
+
+agentStatus:
+  description: Lifecycle of a building/agent (in GET /v1/agents).
+  values:
+    - live
+    - in_progress
+    - planned
+
+agentId:
+  description: Canonical agent identifiers (kebab-case). Table path = data/processed/<id>.lance/
+  values:
+    - mobile-update
+    - address-update
+    - name-correction
+    - photo-update
+
+llmProvider:
+  description: Active inference provider (env LLM_PROVIDER).
+  values:
+    - ollama    # dev, local, $0
+    - groq      # staging/prod, free tier
+
+locale:
+  description: Supported response locales. English only in v1; Hindi planned.
+  values:
+    - en
+    - hi        # planned (post-v1)

@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/*
+  Sarkari-Sahayak — design system.
+  Source of truth for locked tokens: contracts/design-tokens.json (DL-2026-05-15-a).
+
+  DIRECTION — "Receipts, not guesses." A calm public-service reference aesthetic:
+  trustworthy and record-like, but modern and warm — deliberately NOT government.
+  Teal = the product; violet = citations ONLY (the trust affordance).
+
+  ADDITIONS to §8 proposed for Yaksi (noted, not silently changed):
+    • Newsreader (serif) for display headings + wordmark — gives the "citable,
+      authoritative record" character. Inter still owns all UI + body (§8 locked).
+    • Warm paper page background (--color-paper) instead of cool slate, so the app
+      reads like a trusted document, not a generic SaaS dashboard. Cards stay crisp white.
+    • Tint/shade scales derived from the two locked brand hexes (teal, violet) — no
+      new hues introduced; just lighter/darker steps for surfaces, rails, and states.
+*/
+@theme {
+  /* ---- color · brand (locked) ---- */
+  --color-teal: #0e7490; /* primary — buttons, links, active states, wordmark */
+  --color-teal-700: #0b5a70;
+  --color-teal-600: #0e7490;
+  --color-teal-100: #d3ebf1;
+  --color-teal-50: #eef7f9;
+
+  --color-citation: #7c3aed; /* violet — citation chips & source links ONLY */
+  --color-citation-700: #6025ca;
+  --color-citation-100: #ece3fc;
+  --color-citation-50: #f5f1fe;
+
+  /* ---- color · ink ---- */
+  --color-ink-900: #0f172a; /* body text */
+  --color-ink-700: #334155; /* strong secondary */
+  --color-ink-500: #64748b; /* secondary text, captions */
+  --color-ink-400: #94a3b8; /* faint / placeholder */
+
+  /* ---- color · surface ---- */
+  --color-surface-0: #ffffff; /* cards */
+  --color-surface-50: #f8fafc; /* cool inset surface */
+  --color-paper: #f7f5f0; /* warm page background (addition) */
+  --color-paper-edge: #ece8df; /* hairline on paper */
+  --color-hairline: #e6e9ee; /* borders on white */
+
+  /* ---- color · feedback (state only, never decorative) ---- */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-warning-50: #fdf6ec;
+  --color-error: #dc2626;
+
+  /* ---- typography ---- */
+  --font-sans: var(--font-inter), system-ui, sans-serif; /* UI + body (§8) */
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif; /* headings + wordmark */
+
+  /* ---- radius ---- */
+  --radius-sm: 6px;
+  --radius-md: 8px; /* cards, inputs */
+  --radius-lg: 14px; /* hero panels */
+  --radius-pill: 9999px;
+
+  /* ---- elevation (shadow = elevation only, no decoration) ---- */
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --shadow-lift: 0 12px 30px -14px rgba(15, 23, 42, 0.18), 0 2px 6px rgba(15, 23, 42, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(14, 116, 144, 0.18);
+
+  /* ---- motion ---- */
+  --animate-route-fade: route-fade 200ms ease-out;
+}
+
+/* ============================ base ============================ */
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv05";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A faint grounding grid — barely-there texture that reads as ruled paper, not a game board. */
+.paper-field {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(14, 116, 144, 0.05), transparent 55%),
+    linear-gradient(var(--color-paper-edge) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 28px;
+  background-position: 0 0, 0 -1px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-citation-100);
+  color: var(--color-citation-700);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+/* ======================= signature: wordmark ======================= */
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--color-ink-900);
+}
+.wordmark .mark-dot {
+  color: var(--color-teal);
+}
+
+/* ==================== signature: citation system ==================== */
+/*
+  Footnote mechanic: a numbered violet chip inline in the answer ties to a
+  violet-railed source card below. Violet appears NOWHERE else, so the pairing
+  always means "click to verify against the official source."
+*/
+.citation-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
+  vertical-align: baseline;
+  padding: 0.08em 0.5em 0.12em;
+  margin: 0 0.12em;
+  border-radius: var(--radius-pill);
+  background: var(--color-citation-50);
+  color: var(--color-citation-700);
+  border: 1px solid var(--color-citation-100);
+  font-size: 0.78em;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.citation-chip:hover {
+  background: var(--color-citation-100);
+  border-color: var(--color-citation);
+}
+.citation-chip .chip-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.source-rank {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--color-citation);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.source-card {
+  position: relative;
+  display: block;
+  border: 1px solid var(--color-hairline);
+  border-left: 3px solid var(--color-citation);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.source-card:hover {
+  box-shadow: var(--shadow-lift);
+  border-left-color: var(--color-citation-700);
+  transform: translateY(-1px);
+}
+.source-card .source-arrow {
+  transition: transform 160ms ease;
+}
+.source-card:hover .source-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* grounding badge — honest signal, never a fake progress bar */
+.grounding-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.28em 0.7em;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
+}
+.grounding-badge.is-grounded {
+  background: var(--color-citation-50);
+  color: var(--color-citation-700);
+  border: 1px solid var(--color-citation-100);
+}
+.grounding-badge.is-uncertain {
+  background: var(--color-warning-50);
+  color: var(--color-warning);
+  border: 1px solid #f4e2c4;
+}
+
+/* ============================ chat bits ============================ */
+.agent-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  background: var(--color-teal-50);
+  color: var(--color-teal);
+  border: 1px solid var(--color-teal-100);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.msg-enter {
+  animation: msg-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* thinking: "reading the sources" — three violet dots, no fake percentage */
+.think-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-citation);
+  animation: think 1.2s ease-in-out infinite;
+}
+.think-dot:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.think-dot:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+/* ============================ keyframes ============================ */
+@keyframes route-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes think {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
